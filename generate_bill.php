@@ -45,9 +45,9 @@
 				  })
 				});
 
-				var form_data="";
 
 				$("#add_more").click(function(){
+						var form_data="";
 				    count++;
 				    form_data += "<div class=\"form-row\">"+
 				            "<label>"+
@@ -65,7 +65,7 @@
 				        "</label>"+
 				    "</div>"
 
-				    $("#formdata").html(form_data)
+				    $("#formdata").append(form_data)
 				})
 
 				$( "#target" ).submit(createBill);
