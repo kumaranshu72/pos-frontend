@@ -33,7 +33,7 @@
 				        <div class="form-row">
 				            <label>
 				                <span>Hash Tags(comma seprated)</span>
-				                <input type="text" name="tags" required>
+				                <input type="text" name="tags" >
 				            </label>
 				        </div>
 
