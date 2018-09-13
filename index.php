@@ -36,7 +36,6 @@
 <div class="container">
 
 <?php
-   require_once('./config.php');
    require('header.php');
 	 echo $header;
 ?>

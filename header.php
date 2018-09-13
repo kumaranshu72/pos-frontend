@@ -1,4 +1,5 @@
 <?php
+   require_once('./config.php');
    $header = '<header class="slide">     <!--	Add "slideRight" class to items that move right when viewing Nav Drawer  -->
  		<ul id="navToggle" class="burger slide">    <!--	Add "slideRight" class to items that move right when viewing Nav Drawer  -->
  			<li></li><li></li><li></li>

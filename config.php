@@ -1,8 +1,9 @@
 <?php
- define("LIST_ITEMS","http://localhost:3000/items");
- define("GENERATE_BILL","http://localhost:3000/bills/add");
- define("LIST_BILLS","http://localhost:3000/bills");
- define("SHOW_BILL","http://localhost:3000/bill?order_id=");
- define("CREATE ITEM","http://localhost:3000/items/add");
- define("SEARCH","http://localhost:3000/search?key=");
+$GLOBAL['base_url'] = "http://localhost:3000";
+ define("LIST_ITEMS",$GLOBAL['base_url']."/items");
+ define("GENERATE_BILL",$GLOBAL['base_url']."/bills/add");
+ define("LIST_BILLS",$GLOBAL['base_url']."/bills");
+ define("SHOW_BILL",$GLOBAL['base_url']."/bill?order_id=");
+ define("CREATE_ITEM",$GLOBAL['base_url']."/items/add");
+ define("SEARCH",$GLOBAL['base_url']."/search?key=");
 ?>

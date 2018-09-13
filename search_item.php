@@ -27,7 +27,7 @@
 $( "#target" ).submit(searchItem);
 function searchItem(e){
   e.preventDefault();
-  $.get("http://localhost:3000/search?key="+ $('input[name=name]').val(),
+  $.get("<?php echo SEARCH; ?>"+ $('input[name=name]').val(),
   function(data, status){
       var result="<h4>Result :</h4></br><ul>";
       data['Status'].forEach(element => {

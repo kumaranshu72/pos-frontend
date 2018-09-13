@@ -37,7 +37,6 @@
 
 <?php
    require('header.php');
-	 require_once('./config.php');
 	 echo $header;
 ?>
 

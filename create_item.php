@@ -43,7 +43,7 @@ function createItem(e){
     price: $('input[name=price]').val(),
     hashtag: tags
   }
-  $.post("http://localhost:3000/items/add",obj,
+  $.post("<?php echo CREATE_ITEM; ?>",obj,
   function(data, status){
       alert("Data: " + data + "\nStatus: " + status);
   }).fail(function(data, status){

@@ -26,7 +26,7 @@
 var count = 0
 var dropdownItems = ""
 $( document ).ready(function() {
-  $.get("http://localhost:3000/items",
+  $.get("<?php echo LIST_ITEMS; ?>",
   function(data, status){
     data['Status'].forEach(element => {
       dropdownItems+="<option value="+element['id']+">"+element['name']+"</option>"
@@ -72,8 +72,7 @@ function createBill(e){
   }
   var obj1 = new Object();
   obj1["items"] = items_arr
-  console.log('object1------', JSON.stringify(obj1));
-  $.post("http://localhost:3000/bills/add",obj1,
+  $.post("<?php echo GENERATE_BILL; ?>",obj1,
   function(data, status){
       alert("Data: " + data['Message'] + "\nStatus: " + status);
   }).fail(function(data, status){

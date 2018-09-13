@@ -21,7 +21,7 @@
 
 
 $( document ).ready(function() {
-  $.get("http://localhost:3000/bills",
+  $.get("<?php echo LIST_BILLS; ?>",
   function(data, status){
     var dropdownItems = "";
     data['Status'].forEach(element => {
@@ -44,7 +44,7 @@ $( document ).ready(function() {
 $( "#target" ).submit(viewBill);
 function viewBill(e){
   e.preventDefault();
-  $.get("http://localhost:3000/bill?order_id="+ $('#bill_id').val(),
+  $.get("<?php echo SHOW_BILL; ?>"+ $('#bill_id').val(),
   function(data, status){
       var result = "<h4>Bill :</h4></br><ul>";
       result+= "<li>Base Amount : Rs. "+data['bill']['bill_amount']+"</li>"
