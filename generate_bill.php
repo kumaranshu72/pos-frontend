@@ -1,45 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-<title>POS</title>
-
-<meta charset="utf-8">
-<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="HandheldFriendly" content="True">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-<!-- Style Sheets -->
-<link rel="stylesheet" type="text/css" media="all" href="css/reset.css" />
-<link rel="stylesheet" type="text/css" media="all" href="css/trunk.css" />
-	<link rel="stylesheet" href="css/demo.css">
-	<link rel="stylesheet" href="css/form-basic.css">
-
-<!-- Scripts -->
-<script type="text/javascript">
-	if (typeof jQuery == 'undefined')
-		document.write(unescape("%3Cscript src='js/jquery-1.9.js'" +
-															"type='text/javascript'%3E%3C/script%3E"))
-</script>
-<script type="text/javascript" language="javascript" src="js/trunk.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!--[if lt IE 9]>
-<script src="js/html5shiv.js"></script>
-<![endif]-->
-
-
-</head>
-
-<body>
-
-<div class="container">
-
 <?php
    require('header.php');
-	 echo $header;
 ?>
-
 	<div class="content slide">     <!--	Add "slideRight" class to items that move right when viewing Nav Drawer  -->
 		<ul class="responsive">
 			<!--
@@ -47,9 +8,89 @@
 				<p class="placefiller">HEADER</p>
 			</li>-->
 			<li class="body-section">
-				<?php
-				  require('create_bill.php');
-				?>
+				<div class="main-content">
+				    <form class="form-basic" method="post" action="#" id="target">
+
+				        <div class="form-title-row">
+				            <h1>Create Bills</h1>
+				        </div>
+
+				        <div id="formdata">
+				        </div>
+
+				        <div class="form-row">
+				            <button id="add_more" type="button">Add Items</button>
+				        </div>
+
+				        <div class="form-row">
+				            <button type="submit">Create Bill</button>
+				        </div>
+
+				        <p id='result'>
+				        </p>
+				    </form>
+
+
+				</div>
+				<script>
+				var count = 0
+				var dropdownItems = ""
+				$( document ).ready(function() {
+				  $.get("<?php echo LIST_ITEMS; ?>",
+				  function(data, status){
+				    data['Status'].forEach(element => {
+				      dropdownItems+="<option value="+element['id']+">"+element['name']+"</option>"
+				    })
+				    //$("#item").html(dropdownItems);
+				  })
+				});
+
+				var form_data="";
+
+				$("#add_more").click(function(){
+				    count++;
+				    form_data += "<div class=\"form-row\">"+
+				            "<label>"+
+				              "<span>Choose Item</span>"+
+				                "<select name=\"dropdown"+count+"\" id=\"item"+count+"\">"+
+				                dropdownItems+
+				                "</select>"+
+				            "</label>"+
+				    "</div>"+
+
+				    "<div class=\"form-row\">"+
+				        "<label>"+
+				            "<span>Quantity</span>"+
+				            "<input type=\"number\" name=\"qty"+count+"\"  >"+
+				        "</label>"+
+				    "</div>"
+
+				    $("#formdata").html(form_data)
+				})
+
+				$( "#target" ).submit(createBill);
+				function createBill(e){
+				  e.preventDefault();
+				  var items_arr = new Array()
+				  for(i=1;i<=count;i++)
+				  {
+				    var obj={
+				      "item_id": parseInt($('#item'+i+'').val()),
+				      "qty": parseInt($('input[name=qty'+i+']').val()),
+				    }
+				    items_arr.push(obj)
+				  }
+				  var obj1 = new Object();
+				  obj1["items"] = items_arr
+				  $.post("<?php echo GENERATE_BILL; ?>",obj1,
+				  function(data, status){
+				      alert("Data: " + data['Message'] + "\nStatus: " + status);
+				  }).fail(function(data, status){
+				    alert(data['responseJSON']['Message'])
+				  });
+				}
+				</script>
+
 			</li>
 			<!--
 			<li class="footer-section">
@@ -59,8 +100,6 @@
 		</ul>
 	</div>
 
-</div>
-
-
-</body>
-</html>
+	<?php
+	   require('footer.php');
+	?>

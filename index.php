@@ -1,43 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-<title>POS</title>
-
-<meta charset="utf-8">
-<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="HandheldFriendly" content="True">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-<!-- Style Sheets -->
-<link rel="stylesheet" type="text/css" media="all" href="css/reset.css" />
-<link rel="stylesheet" type="text/css" media="all" href="css/trunk.css" />
-	<link rel="stylesheet" href="css/demo.css">
-	<link rel="stylesheet" href="css/form-basic.css">
-
-<!-- Scripts -->
-<script type="text/javascript">
-	if (typeof jQuery == 'undefined')
-		document.write(unescape("%3Cscript src='js/jquery-1.9.js'" +
-															"type='text/javascript'%3E%3C/script%3E"))
-</script>
-<script type="text/javascript" language="javascript" src="js/trunk.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!--[if lt IE 9]>
-<script src="js/html5shiv.js"></script>
-<![endif]-->
-
-
-</head>
-
-<body>
-
-<div class="container">
-
 <?php
    require('header.php');
-	 echo $header;
 ?>
 
 	<div class="content slide">     <!--	Add "slideRight" class to items that move right when viewing Nav Drawer  -->
@@ -47,9 +9,59 @@
 				<p class="placefiller">HEADER</p>
 			</li>-->
 			<li class="body-section">
-				<?php
-				  require('create_item.php');
-				?>
+				<div class="main-content">
+				    <form class="form-basic" method="post" action="#" id="target">
+
+				        <div class="form-title-row">
+				            <h1>Create Items</h1>
+				        </div>
+
+				        <div class="form-row">
+				            <label>
+				                <span>Item Name</span>
+				                <input type="text" name="name" id="name" required>
+				            </label>
+				        </div>
+
+				        <div class="form-row">
+				            <label>
+				                <span>Item Price</span>
+				                <input type="text" name="price" required>
+				            </label>
+				        </div>
+
+				        <div class="form-row">
+				            <label>
+				                <span>Hash Tags(comma seprated)</span>
+				                <input type="text" name="tags" required>
+				            </label>
+				        </div>
+
+				        <div class="form-row">
+				            <button type="submit">Create</button>
+				        </div>
+
+				    </form>
+
+				</div>
+				<script>
+				$( "#target" ).submit(createItem);
+				function createItem(e){
+				  e.preventDefault();
+				  var tags = $('input[name=tags]').val().split(",")
+				  var obj={
+				    name: $('input[name=name]').val(),
+				    price: $('input[name=price]').val(),
+				    hashtag: tags
+				  }
+				  $.post("<?php echo CREATE_ITEM; ?>",obj,
+				  function(data, status){
+				      alert("Data: " + data['Status'] + "\nStatus: " + status);
+				  }).fail(function(data, status){
+				    alert(data['responseJSON']['Status'] )
+				  });
+				}
+				</script>
 			</li>
 			<!--
 			<li class="footer-section">
@@ -59,8 +71,6 @@
 		</ul>
 	</div>
 
-</div>
-
-
-</body>
-</html>
+	<?php
+	   require('footer.php');
+	?>
