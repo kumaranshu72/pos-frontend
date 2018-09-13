@@ -1,5 +1,5 @@
 <?php
-$GLOBAL['base_url'] = "http://localhost:3000";
+$GLOBAL['base_url'] = "https://desolate-castle-62365.herokuapp.com";
  define("LIST_ITEMS",$GLOBAL['base_url']."/items");
  define("GENERATE_BILL",$GLOBAL['base_url']."/bills/add");
  define("LIST_BILLS",$GLOBAL['base_url']."/bills");
